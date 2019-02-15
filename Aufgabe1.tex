@@ -1,0 +1,68 @@
+\documentclass[a4paper,12pt,ngerman,oneside]{article}
+
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage[document]{ragged2e}
+\usepackage{framed}
+
+%Dokument Metadaten
+\title{Computermathematik 1 - Übung 1 - Aufgabe 1}
+\date{10. Oktober 2017}
+\author{cernoel\\ }
+
+\begin{document} 
+  %Definiere Seiten-Stil für folgende Seiten (Header, Footer,..)
+  \pagestyle{fancy}
+  \fancyhf{}
+  \rhead{cernoel\LaTeX}
+  \lhead{Computermathematik - Übung1 - Aufgabe 1}
+  \rfoot{Seite \thepage}
+  
+  %Anfang des Artikels
+  \textbf{Auszug} aus Mitschrift Analysis T1 vom 06.10.17 \break
+  in Bezug auf das Analysis T1 Wintersemester 2017/18 - Buch (Institut für Mathematik A von 
+  Peter Grabner/Christian Elsholz) und Wikipedia-Eintrag: \url{https://de.wikipedia.org/wiki/Peano-Axiome} \break
+  zu Punkt 1.1 Prinzip der vollständigen Induktion \break
+  \break
+  \textbf{Peano Axiome} wurden 1889 vom italienischen Mathematiker Giuseppe Peano formuliert und sind 
+  f\"unf Axiome (Aussageform die immer als wahr angenommen werden, also beweislos vorausgesetzt werden / sind das 
+  Gegenteil von Thesen) die nat\"urliche Zahlen $\mathbb{N}$ und ihre Eigenschaften beschreiben:
+  
+  %Aufzaehlung der Axiome
+  \begin{framed}
+    \begin{enumerate}
+      \item $0 \in \mathbb{N}_0$
+      \begin{enumerate}
+        \item 0 ist eine nat\"urliche Zahl
+      \end{enumerate}
+
+      \item $\forall n \in \mathbb{N}_0:S(n) \in \mathbb{N}_0$
+      \begin{enumerate}
+        \item Jede nat\"urliche Zahl \textit{n} hat \textit{(n+1)} als Nachfolger.
+        \item $S(n) = (n+1)$
+        \item lt. Wikipedia auch: $\forall n(n \in \mathbb{N}_0 \Rightarrow n'\in \mathbb{N}_0 $) wobei $n' = (n + 1)$
+      \end{enumerate}
+
+      \item $\forall n \in \mathbb{N}_0:S(n) \neq 0$
+      \begin{enumerate}
+        \item 0 ist kein Nachfolger einer nat\"urlichen Zahl
+        \item Wiki: $\forall n(n\in \mathbb{N}_0 \Rightarrow n' \neq 0)$
+      \end{enumerate}
+
+      \item $\forall m,n \in \mathbb{N}_0:S(m)=S(n) \Rightarrow m=n$
+      \begin{enumerate}
+        \item Nat\"urliche Zahlen mit gleichem Nachfolger sind gleich
+        \item Wiki: $\forall n,m(m,n \in \mathbb{N}_0 \Rightarrow (m' = n' \Rightarrow m = n)) $
+      \end{enumerate}
+
+      \item Jede Menge x mit den Eigenschaften oben enth\"allt $\mathbb{N}_0$
+    \end{enumerate}
+  \end{framed}
+  Bemerkung: Jede nicht leere Teilmenge der nat\"urlichen Zahlen besitzt ein \textbf{kleinstes} Element = Wohlordnung der nat\"urlichen
+  Zahlen 
+\end{document}

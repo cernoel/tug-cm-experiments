@@ -1,0 +1,88 @@
+\documentclass[a4paper,12pt,ngerman,oneside]{article}
+
+\usepackage[utf8]{inputenc} %Für Texte mit Sonderzeiche und Umlaute
+\usepackage[ngerman]{babel} %new German babel .. used for word-wrap,..
+\usepackage{fancyhdr} %for fancy header/footer manipulation
+\usepackage[table]{xcolor} %coloring the table
+\usepackage{charter} %activate Font Family Charter for whole document
+
+\usepackage{tikz} %TikZ drawing package itself
+% To use the package tkz-euclide, place the following lines in the preamble of your LaTeX document.
+% https://tex.stackexchange.com/questions/42611/list-of-available-tikz-libraries-with-a-short-introduction
+\usepackage{tkz-euclide} %to use geometric calculation stuff in tikz
+\usetkzobj{all} 
+
+\usetikzlibrary{through} %for through calculations
+\usetikzlibrary{intersections} %for intersect calculations
+
+
+\begin{document}
+%Definiere Seiten-Stil für folgende Seiten (Header, Footer,..)
+\pagestyle{fancy} %activates the Style for this document
+\fancyhf{} % clear header/footer
+\rhead{cernoel\LaTeX} %on header right side
+\lhead{Computermathematik 1 - Übung 3 - Aufgabe 5} %on header left side
+\rfoot{Seite \thepage} %on footer right side
+\centering %center everything 
+	
+  %polygon with 5 sides
+  \begin{tikzpicture}
+    
+	%define points
+    \coordinate (A) at (0:3cm);
+    \node[below] at (A) {A};
+    \coordinate (B) at (72:3cm);
+    \node[above] at (B) {B};
+    \coordinate (C) at (2*72:3cm);
+    \node[above] at (C) {C};
+    \coordinate (D) at (3*72:3cm);
+    \node[below] at (D) {D};
+    \coordinate (E) at (4*72:3cm);
+    \node[below] at (E) {E};
+	
+	% Seitenhalbierende AB
+	\coordinate (SHAB) at ($(A)!0.5!(B)$);
+	\node [fill=red,inner sep=2pt,label=-90:$AB/2$] at (SHAB) {};
+	\draw[dotted,red, name path=SHABD] (SHAB) -- (D);
+	
+	% Seitenhalbierende BC
+	\coordinate (SHBC) at ($(B)!0.5!(C)$);
+	\node [fill=red,inner sep=2pt,label=-90:$BC/2$] at (SHBC) {};
+	\draw[dotted,red, name path=SHBCE] (SHBC) -- (E);  
+	
+	% Mittelpunkt IM (intersect von zwei Seitenhalbierenden)
+	\path [name intersections={of=SHABD and SHBCE, by=IM}];
+	\node [fill=red,inner sep=2pt,label=-90:$M$] at (IM) {};
+	
+    %draw lines between coordinates and generate bisectors
+    \draw (A) -- (B);
+    \draw (B) -- (C);
+    \draw (C) -- (D);
+    \draw (D) -- (E);
+    \draw (E) -- (A);
+    
+    
+    %draw circles
+    \node (aussenkreis) at (IM) [draw, circle through=(A), color=blue] {};
+    \node (innenkreis) at (IM) [draw, circle through=(SHAB), color=red] {};
+    
+    \tkzLabelAngle[pos = - 0.5](B,A,E){$\alpha$} %label with alpha.. 
+    \tkzMarkAngle[fill=black, size=0.9,opacity=.2](B,A,E) %draw label circle
+    
+    \tkzLabelAngle[pos = 0.5](D,C,B){$\gamma$}
+    \tkzMarkAngle[fill=red, size=0.9,opacity=.2](D,C,B)
+    
+    \tkzLabelAngle[pos = 0.5](C,B,A){$\beta$}
+    \tkzMarkAngle[fill=yellow, size=0.9,opacity=.2](C,B,A)
+    
+    \tkzLabelAngle[pos = 0.5](A,E,D){$\epsilon$}
+    \tkzMarkAngle[fill=blue, size=0.9,opacity=.2](A,E,D)
+    
+    \tkzLabelAngle[pos = 0.5](E,D,C){$\delta$}
+    \tkzMarkAngle[fill=green,size=0.9,opacity=.2](E,D,C)
+    
+    
+  \end{tikzpicture}
+  	
+	
+\end{document}

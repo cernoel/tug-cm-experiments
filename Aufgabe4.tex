@@ -1,0 +1,132 @@
+\documentclass[a4paper,12pt,ngerman,oneside]{article}
+
+\usepackage[utf8]{inputenc} %now we can use mutations (Ö, Ä,..)
+\usepackage[german]{babel}
+\usepackage{charter} %activate Font Family Charter for whole document
+\usepackage[linesnumbered,lined,boxed,commentsnumbered]{algorithm2e} %for pseudo code
+\usepackage{titling} %used for maketitle
+\usepackage{listings, verbatim} %used for real code in document
+\usepackage{caption} %captions in source - code examples
+\usepackage{xcolor} %so we can use Color-Names (gray,...)
+\usepackage{amsmath, amssymb} %math symbols and stuff
+
+%Listings-Caption Boxes Settings
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{%
+  \parbox{\textwidth}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}\vskip-4pt}}
+\captionsetup[lstlisting] %label settings for listings
+{
+	format=listing,
+	labelfont=white,
+	textfont=white
+}
+\lstset % lstlisting settings
+{
+	frame=lrb, %frame left right bottom
+	xleftmargin=\fboxsep, %box to text margin left
+	xrightmargin=-\fboxsep, %box to text margin right
+	keywordstyle=\bfseries,
+	language=C,
+	numbers=left,
+	breaklines=false,
+	tabsize=4,
+}
+%listing style found: https://tex.stackexchange.com/questions/14967/source-code-listing-with-frame-around-code
+
+
+%Dokument Metadaten
+\title{Computermathematik 1 - Übung 2 - Aufgabe 4}
+\date{\today}
+\author{cernoel}
+
+\begin{document} 
+  \maketitle
+  \begin{abstract}
+    Man implementiere einen Algorithmus zum naiven Testen, ob eine Eingabezahl
+    eine Primzahl ist oder nicht. Darstellung des Algorithmus mittels Pseudocode 
+    und C-Implementation.
+  \end{abstract}
+  \newpage
+  \tableofcontents 
+  
+  \newpage
+  \section{Einleitung}
+  Man implementiere einen Algorithmus zum naiven Testen, ob eine Eingabezahl 
+  $N \in \mathbb{N}$ eine Primzahl ist oder nicht.(Zur Erinnerung: eine Zahl 
+  $N \in \mathbb{N}$ ist eine Primzahl, wenn sie nur durch 1 und sich selbst 
+  teilbar ist.) Eine sehr einfache Testmöglichkeit ist, dass man jede Zahl $m \in 
+  \{ 2, 3, 4, ..., N - 2, N - 1 \}$ testet, ob sie die Zahl $N$ teilt. Findet man 
+  keine solche Zahl $m$, so ist $N$ offensichtlich eine Primzahl.
+  
+  \newpage
+  \section{Codebeispiele}
+  \subsection{Pseudo-Implementation}
+  %for detailed info look: https://www.tug.org/texlive/Contents/live/texmf-dist/doc/latex/algorithm2e/algorithm2e.pdf
+  \begin{algorithm}[H] %H forces the algorithm to stay in place
+    \SetAlgoLined %draws lines between function start and end
+    \KwData{Input as Integer} %description input data
+    \KwResult{to prime or not to prime, that is the question} %Result
+
+    \While{counter \textless \ input}{
+      result = divide input with counter\;
+    \eIf{result is greater than 0}{
+      we found our divider and input is no prime;
+      }{
+      move on with the loop;
+      }
+      when we have not found a divider;
+      then the input is a prime;
+    }
+  \caption{Simple Primefinder Algorithm}
+  \end{algorithm}
+  
+  \newpage
+  \subsection{C-Implementation}
+  
+  \belowcaptionskip=-10pt
+  \begin{lstlisting}[label=example1,caption=Primefinder in C with 997 as Testnumber, basicstyle=\small]
+#include "stdio.h"
+
+// Function isPrime(unsigned long int input)
+// returns 0 if prime, or number > 0, where number is 
+// the divider.
+int isPrime(unsigned long int input){
+int isPrime = 1;
+
+for(int x = 2; x < input; x++)
+{
+  if (input % x == 0)
+  {
+	isPrime = 0;
+	break; //loop
+  }
+  
+  isPrime = x; //sets return to Divider
+  }
+  
+  return isPrime;
+}
+
+int main()
+{
+  unsigned long int input = 997; //input variable
+  int isInputPrime = isPrime(input);
+
+  if(isInputPrime == 0){
+	printf("%ld is a Prime!\n", input);
+  } else {
+	printf("No Prime! First Divider: %d\n", isInputPrime);
+  }
+}
+  \end{lstlisting}
+  
+
+  
+  Donald E.~Knuth  showed~\cite{artof}...
+  \bibliographystyle{plain}
+  
+  \newpage
+  \section{Literatur}
+  \bibliography{literatur}
+
+\end{document}

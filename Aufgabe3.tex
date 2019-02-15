@@ -1,0 +1,54 @@
+\documentclass[a4paper,12pt,ngerman,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{fancyhdr} %for fancy header/footer manipulation
+\usepackage[table]{xcolor} %coloring the table
+\usepackage{charter} %activate Font Family Charter for whole document
+
+%Dokument Metadaten
+\title{Computermathematik 1 - Übung 2 - Aufgabe 3}
+\date{22. Oktober 2017}
+\author{cernoel}
+
+\begin{document} 
+  %Definiere Seiten-Stil für folgende Seiten (Header, Footer,..)
+  \pagestyle{fancy} %activates the Style for this document
+  \fancyhf{} % clear header/footer
+  \rhead{cernoel\LaTeX} %on header right side
+  \lhead{Computermathematik 1 - Übung 2 - Aufgabe 3} %on header left side
+  \rfoot{Seite \thepage} %on footer right side
+  \centering %center everything 
+  \rowcolors{2}{gray!25}{white} %changing row background color alternately of table 
+  \begin{tabular}{l c r r}
+    \rowcolor{gray!50} % darkgray table header
+    \textbf{Typ} 		& \textbf{Bytes} & \textbf{Minimalwert} & \textbf{Maximalwert} 	\\
+    char 				& 1	& -128			& 127 			\\ 
+    unsigned char		& 1	& 0				& 255			\\
+    singed char		& 1	& -128			& 127			\\
+    int*				& 4	& -2147483648		& 2147483647		\\
+    unsigned int*		& 4	& 0				& 4294967295		\\
+    signed int*		& 4	& -2147483648		& 2147483647		\\
+    short int			& 2	& -32768			& 32767			\\
+    unsigned short int	& 2	& 0				& 65535			\\
+    signed short int	& 2	& -32768			& 32767			\\
+    long int			& 4	& -2147483648		& 2147483647		\\
+    unsigned long int	& 4	& 0				& 4294967295		\\
+    signed long int	& 4	& -2147483648		& 2147483647		\\
+    float				& 4	& 1.17549E-038	& 3.40282E+038	\\
+    double			& 8	& 2.22507E-308	& 1.79769E+308	\\
+    long double**		& 8	& 2.22507E-308	& 1.79769E+308	\\
+  \end{tabular}
+  \break
+  \begin{flushleft} %text align left
+    * Bei 16-Bit Rechnern gelten die gleichen Werte bei den entsprechenden
+    Angaben zu \textit{short int}. \break
+    \break
+    ** Dieser Typ liefert auf jedem Rechner den genauesten Fließkommatyp, ist
+    jedoch oft mit \textit{double} identisch.
+    \break
+    \break
+    \tiny{Aus dem Buch: C-Programmieren von Anfang an von Helmut Erlenkötter - 17. Auflage 2009
+      - Rohwolt Taschenbuch Verlag - ISBN: 978-3-499-60074-6}
+  \end{flushleft}
+\end{document}

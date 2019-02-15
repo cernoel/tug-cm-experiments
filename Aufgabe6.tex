@@ -1,0 +1,115 @@
+\documentclass[a4paper,12pt,ngerman,oneside]{article}
+
+\usepackage[ngerman]{babel} %new German babel .. used for word-wrap,..
+
+\usepackage[utf8]{inputenc} %Für Texte mit Sonderzeiche und Umlaute
+\usepackage[ngerman]{babel} %new German babel .. used for word-wrap,..
+\usepackage{fancyhdr} %for fancy header/footer manipulation
+\usepackage[table]{xcolor} %coloring the table
+\usepackage{charter} %activate Font Family Charter for whole document
+
+\usepackage{tikz} %TikZ drawing package itself
+% To use the package tkz-euclide, place the following lines in the preamble of your LaTeX document.
+% https://tex.stackexchange.com/questions/42611/list-of-available-tikz-libraries-with-a-short-introduction
+\usepackage{tkz-euclide} %to use geometric calculation stuff in tikz
+\usetkzobj{all} 
+
+\usetikzlibrary{through} %for through calculations
+\usetikzlibrary{intersections} %for intersect calculations
+
+
+\begin{document}
+%Definiere Seiten-Stil für folgende Seiten (Header, Footer,..)
+\pagestyle{fancy} %activates the Style for this document
+\fancyhf{} % clear header/footer
+\rhead{cernoel\LaTeX} %on header right side
+\lhead{Computermathematik 1 - Übung 3 - Aufgabe 6} %on header left side
+\rfoot{Seite \thepage} %on footer right side
+\centering %center everything
+
+\begin{flushleft} %text align left
+	1.) Mittelpunkt / Schwerpunkt bei einem Dreieck \break
+	\break
+	Um auf den Schwerpunkt (M) eines Dreiecks zu kommen, nimmt man
+	von allen Seiten den Schnittpunkt der Seitenhalbierenden, was heißt, die halbe
+	Länge der Seite. zB.: die Seitenhalbierende AB wird berechnet indem man die Länge
+	der Strecke zwischen Punkt A und B durch 2 rechnet. Man zieht dann von dieser Halbierung
+	eine Linie zum gegenüberliegenden Punkt (C). Das macht man mit allen Seiten. Logischerweise
+	treffen sich alle Linien dann genau im Schwerpunkt.
+	\break
+\end{flushleft}
+
+%Triangle
+\begin{tikzpicture}
+
+	\coordinate [label=left:$A$] (A) at (2,4);
+	\coordinate [label=left:$B$] (B) at (4,8);
+	\coordinate [label=right:$C$] (C) at (8,2);
+	
+	\draw (A) -- (B) [name path=AB] coordinate (AB);
+	\draw (B) -- (C) [name path=BC] coordinate (BC);
+	\draw (C) -- (A) [name path=CA] coordinate (CA);
+	
+	% Seitenhalbierende AB
+	\coordinate [label=left:$AB/2$] (SHAB) at ($(A)!0.5!(B)$);
+	\draw[dotted,red, name path=SHABC] (SHAB) -- (C);
+	
+	% Seitenhalbierende BC
+	\coordinate [label=right:$BC/2$](SHBC) at ($(B)!0.5!(C)$);
+	\draw[dotted,red, name path=SHBCA] (SHBC) -- (A);  
+	
+	% Seitenhalbierende CA
+	\coordinate [label=left:$CA/2$](SHCA) at ($(C)!0.5!(A)$);
+	\draw[dotted,red, name path=SHBAC] (SHCA) -- (B);
+	
+	% Mittelpunkt IM (intersect von zwei Seitenhalbierenden)
+	\draw circle [name intersections={of=SHBCA and SHBAC, by=IM}];
+	\node [fill=red,inner sep=2pt,label=-90:$M$] at (IM) {};
+
+\end{tikzpicture}
+\break
+
+\newpage
+\begin{flushleft} %text align left
+	2.) Endlicher Automat: Division / 2
+	\break
+	\break
+	Dieser Automat beschreibt den Rechts-Shift Vorgang bei einer
+	ein-Band-Turing-Maschine. Wenn am Anfang eine Null gelesen wird, wird
+	weitergelesen bis die erste Eins kommt. Die Maschine wechselt in den Shift
+	Status und sucht nach der nächsten Null. Sollte keine Null auffindbar sein, 
+	ist keine Division möglich, da die Zahl ungerade ist. Wenn eine Null gefunden wird, 
+	wechselt die Maschine wieder in den Start Status und sucht nach der nächsten Eins.
+	Wenn keine eins mehr auffindbar ist, dann ist der Shift Vorgang beendet und die Division vollzogen.
+	% Strukturdiagramm mit Pfeilen
+	\begin{tikzpicture}
+	\node (Start) at (2,8) [circle,shade,draw,minimum size=3cm] {Start};
+	\node (Shift) at (8,8) [circle,shade,draw,minimum size=3cm] {Shift};
+	
+	\node (End) at (2,2) [circle,shade,draw,minimum size=3cm] {End};
+	\node (notDiv) at (8,2) [circle,shade,draw,minimum size=3cm] {notDiv};
+	
+	\draw[->, blue!50, line width=1mm] (Start) to[bend left=320]
+	  node[left] {underline} (End);
+	  
+	\draw[->, blue!50, line width=1mm] (Start) to[bend left=45]
+	  node[above] {one} (Shift);
+	
+	\draw[->, blue!50, line width=1mm, looseness=8] (Start) to[out=140, in=160] node[left] {zero} (Start);
+	
+	\draw[->, blue!50, line width=1mm] (Shift) to[bend left=45]
+	node[above] {zero} (Start);
+	
+	\draw[->, blue!50, line width=1mm, looseness=8] (Shift) to[out=40, in=60] node[right] {one} (Shift);
+	
+	\draw[->, blue!50, line width=1mm] (Shift) to[out=320, in=45] node[right] {underline} (notDiv);
+
+ 	\end{tikzpicture}
+ 	
+ 	
+	
+\end{flushleft}
+  
+
+
+\end{document}

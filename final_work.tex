@@ -1,0 +1,418 @@
+\documentclass[a4paper, 11pt, ngerman, twocolumn]{article}
+
+\usepackage[a4paper, margin=2.5cm]{geometry} % für Randabstände/Bleeding/Margin
+% https://www.sharelatex.com/learn/Page_size_and_margins
+
+\usepackage[utf8]{inputenc} %Für Texte mit Sonderzeiche und Umlaute
+\usepackage[ngerman]{babel} %New German babel .. für Wort-Umbrüche usw.
+\usepackage{fancyhdr} %for fancy header/footer manipulation
+\usepackage{tikz} %TikZ Zeichen Package
+\usetikzlibrary{patterns} % um Muster in Flächen zu zeichnen
+\usetikzlibrary{calc} %für Berechnungen innerhalb von Zeichnungen
+\usetikzlibrary{intersections} %um mit Pfaden zu arbeiten
+\usepackage{framed} %um einfach Boxen um etwas zu zeichnen
+\usepackage{amsmath} %um Mathe-Formeln darzustellen.
+\usepackage{booktabs} %Horizontale Linien
+
+\setlength{\headheight}{14pt}
+
+\newcommand{\myLineWidth}{0.5mm}
+
+\begin{document}
+	
+	%Kopfzeile
+	\pagestyle{fancy} %Aktiviert den Fancy-Stil-Modus
+	\rhead{00000000} %Kopfzeile rechts
+	\chead{Hausaufgabe 1} %Kopfzeile mitte 
+	\lhead{cernoel} %Kopfzeile links
+	
+	\section{Aufgabenstellung}
+	
+	\begin{flushleft}
+		Bestimme anhand der folgenden Skizze die gefragten Unbekannten.
+		(Lösung zur Probe ist $15cm^2$) \break
+		Die Flächenstücke $A$,$B$,$C$,$D$ haben den gleichen Umfang. $D$ = ? \break
+	\end{flushleft}
+	
+	\begin{center}
+	\begin{tikzpicture}[scale=0.55]
+		
+	% ==========
+	% Rechteck A
+	% ==========			
+	% Koordinaten des Rechtecks bestimmen
+	\coordinate (AA) at (0,1);
+	\coordinate (AB) at (7,1);
+	\coordinate (AC) at (7,0);
+	\coordinate (AD) at (0,0);
+	
+	% Mittelpunkt des Rechtecks finden...
+	% -----------------------------------
+	% Seitenhalbierende (oben)
+	\coordinate (A-SH-AA-AB) at ($(AA)!0.5!(AB)$);
+	% Seitenhalbierende (unten)
+	\coordinate (A-SH-AC-AD) at ($(AC)!0.5!(AD)$);
+	% unsichtbaren Pfad von oben nach unten berechnen
+	\path[name path=AHORIZ] (A-SH-AA-AB) -- (A-SH-AC-AD);
+	% Seitenhalbierende (links)
+	\coordinate (A-SH-AA-AD) at ($(AA)!0.5!(AD)$);
+	% Seitenhalbierende (rechts)
+	\coordinate (A-SH-AB-AC) at ($(AB)!0.5!(AC)$);
+	% unsichtbaren Pfad von links nach rechts berechne 
+	\path[name path=AVERT] (A-SH-AA-AD) -- (A-SH-AB-AC);
+	% Schnittpunkt von Horizontale und Vertikale
+	\path [name intersections={of=AHORIZ and AVERT, by=A-Mitte}];
+	% ----------------------------------------
+	
+	% Zeichne die Box			
+	\draw [line width=\myLineWidth] (AA)--(AB)--(AC)--(AD)--(AA);
+	
+	% Schreibe A am Schnittpunkt (in das Rechteck)
+	\node at (A-Mitte) {\LARGE $A$};
+	
+	% ==========
+	% Rechteck B
+	% ==========
+	% Koordinaten des Rechtecks bestimmen
+	\coordinate (BA) at (0,0);
+	\coordinate (BB) at (2,0);
+	\coordinate (BC) at (2,-6);
+	\coordinate (BD) at (0,-6);
+	
+	% Mittelpunkt des Rechtecks finden...
+	% -----------------------------------
+	% Seitenhalbierende (oben)
+	\coordinate (A-SH-BA-BB) at ($(BA)!0.5!(BB)$);
+	% Seitenhalbierende (unten)
+	\coordinate (A-SH-BC-BD) at ($(BC)!0.5!(BD)$);
+	% unsichtbaren Pfad von oben nach unten berechnen
+	\path[name path=BHORIZ] (A-SH-BA-BB) -- (A-SH-BC-BD);
+	% Seitenhalbierende (links)
+	\coordinate (A-SH-BA-BD) at ($(BA)!0.5!(BD)$);
+	% Seitenhalbierende (rechts)
+	\coordinate (A-SH-BB-BC) at ($(BB)!0.5!(BC)$);
+	% unsichtbaren Pfad von links nach rechts berechnen
+	\path[name path=BVERT] (A-SH-BA-BD) -- (A-SH-BB-BC);
+	% Schnittpunkt von Horizontale und Vertikale
+	\path [name intersections={of=BHORIZ and BVERT, by=B-Mitte}];
+	% ----------------------------------------
+	
+	% Zeichne die Box			
+	\draw [line width=\myLineWidth] (BA)--(BB)--(BC)--(BD)--(BA);
+	
+	 % Schreibe B am Schnittpunkt (in das Rechteck)
+	\node at (B-Mitte) {\LARGE $B$};
+	
+	
+	% ==========
+	% Rechteck C
+	% ==========
+	% Koordinaten des Rechtecks bestimmen			
+	\coordinate (CA) at (2,0);
+	\coordinate (CB) at (7,0);
+	\coordinate (CC) at (7,-3);
+	\coordinate (CD) at (2,-3);
+	
+	% Mittelpunkt des Rechtecks finden...
+	% -----------------------------------
+	% Seitenhalbierende (oben)
+	\coordinate (A-SH-CA-CB) at ($(CA)!0.5!(CB)$);
+	% Seitenhalbierende (unten)
+	\coordinate (A-SH-CC-CD) at ($(CC)!0.5!(CD)$);
+	% unsichtbaren Pfad von oben nach unten berechnen
+	\path[name path=CHORIZ] (A-SH-CA-CB) -- (A-SH-CC-CD);
+	% Seitenhalbierende (links)
+	\coordinate (A-SH-CA-CD) at ($(CA)!0.5!(CD)$);
+	% Seitenhalbierende (rechts)
+	\coordinate (A-SH-CB-CC) at ($(CB)!0.5!(CC)$);
+	% unsichtbaren Pfad von links nach rechts berechnen
+	\path[name path=CVERT] (A-SH-CA-CD) -- (A-SH-CB-CC);
+	% Schnittpunkt von Horizontale und Vertikale
+	\path [name intersections={of=CHORIZ and CVERT, by=C-Mitte}];
+	% ----------------------------------------
+	
+	% Zeichne die Box			
+	\draw [line width=\myLineWidth] (CA)--(CB)--(CC)--(CD)--(CA);
+	
+	% Schreibe B am Schnittpunkt (in das Rechteck)
+	\node at (C-Mitte) {\LARGE $C$};
+	
+		
+	% ==========
+	% Rechteck C
+	% ==========
+	% Koordinaten des Rechtecks bestimmen;
+	\coordinate (DA) at (2,-3);
+	\coordinate (DB) at (7,-3);
+	\coordinate (DC) at (7,-6);
+	\coordinate (DD) at (2,-6);
+	
+	% Mittelpunkt des Rechtecks finden...
+	% -----------------------------------
+	% Seitenhalbierende (oben)
+	\coordinate (A-SH-DA-DB) at ($(DA)!0.5!(DB)$);
+	% Seitenhalbierende (unten)
+	\coordinate (A-SH-DC-DD) at ($(DC)!0.5!(DD)$);
+	% unsichtbaren Pfad von oben nach unten berechnen
+	\path[name path=DHORIZ] (A-SH-DA-DB) -- (A-SH-DC-DD);
+	% Seitenhalbierende (links)
+	\coordinate (A-SH-DA-DD) at ($(DA)!0.5!(DD)$);
+	% Seitenhalbierende (rechts)
+	\coordinate (A-SH-DB-DC) at ($(DB)!0.5!(DC)$);
+	% unsichtbaren Pfad von links nach rechts berechnen
+	\path[name path=DVERT] (A-SH-DA-DD) -- (A-SH-DB-DC);
+	% Schnittpunkt von Horizontale und Vertikale
+	\path [name intersections={of=DHORIZ and DVERT, by=D-Mitte}];
+	% ----------------------------------------
+	
+	% Zeichne die Box			
+	\draw [line width=\myLineWidth, pattern=dots] (DA)--(DB)--(DC)--(DD)--(DA);
+	
+	% Schreibe B am Schnittpunkt (in das Rechteck)
+	\node at (D-Mitte) {\LARGE $D$};
+	
+	% Text auf Pfad AA -- AB
+	\draw (AA) -- (AB) node [midway, above, sloped] (TextNode) {\LARGE $7cm$};
+	
+	% Text auf Pfad BD -- AA
+	\draw (BD) -- (AA) node [midway, above, sloped] (TextNode) {\LARGE $7cm$};
+		
+	\end{tikzpicture}
+	\end{center}
+	
+	\section{Bestimmung der Seiten}
+	\subsection{Überlegungen}
+		\begin{flushleft}
+			Angenommen: Flächen $C$ und $D$ sind exakt gleich, haben also dieselbe
+			Höhe und Breite, die gegenüberliegenden Seiten der Flächen
+			haben die exakt gleiche Länge, sind also Rechtecke. \break
+			\break
+			Umfang U: $U_A = U_B = U_C = U_D$ \break
+			Flächenformel bei Rechtecken: $U = 2 \cdot (a + b )$ \break
+			Versuch die Flächenformeln gleichzusetzen und $x$,$y$ dadurch zu gewinnen \break
+		\end{flushleft}
+
+		\begin{center}	
+		\begin{tikzpicture}[scale=0.6]
+		% ==========
+		% Rechteck A
+		% ==========			
+		% Koordinaten des Rechtecks bestimmen
+		\coordinate (AA) at (0,1);
+		\coordinate (AB) at (7,1);
+		\coordinate (AC) at (7,0);
+		\coordinate (AD) at (0,0);
+		
+		% Mittelpunkt des Rechtecks finden...
+		% -----------------------------------
+		% Seitenhalbierende (oben)
+		\coordinate (A-SH-AA-AB) at ($(AA)!0.5!(AB)$);
+		% Seitenhalbierende (unten)
+		\coordinate (A-SH-AC-AD) at ($(AC)!0.5!(AD)$);
+		% unsichtbaren Pfad von oben nach unten berechnen
+		\path[name path=AHORIZ] (A-SH-AA-AB) -- (A-SH-AC-AD);
+		% Seitenhalbierende (links)
+		\coordinate (A-SH-AA-AD) at ($(AA)!0.5!(AD)$);
+		% Seitenhalbierende (rechts)
+		\coordinate (A-SH-AB-AC) at ($(AB)!0.5!(AC)$);
+		% unsichtbaren Pfad von links nach rechts berechne 
+		\path[name path=AVERT] (A-SH-AA-AD) -- (A-SH-AB-AC);
+		% Schnittpunkt von Horizontale und Vertikale
+		\path [name intersections={of=AHORIZ and AVERT, by=A-Mitte}];
+		% ----------------------------------------
+		
+		% Zeichne die Box			
+		\draw [line width=\myLineWidth] (AA)--(AB)--(AC)--(AD)--(AA);
+		
+		% Schreibe A am Schnittpunkt (in das Rechteck)
+		\node at (A-Mitte) {\LARGE $A$};
+		
+		% ==========
+		% Rechteck B
+		% ==========
+		% Koordinaten des Rechtecks bestimmen
+		\coordinate (BA) at (0,0);
+		\coordinate (BB) at (2,0);
+		\coordinate (BC) at (2,-6);
+		\coordinate (BD) at (0,-6);
+		
+		% Mittelpunkt des Rechtecks finden...
+		% -----------------------------------
+		% Seitenhalbierende (oben)
+		\coordinate (A-SH-BA-BB) at ($(BA)!0.5!(BB)$);
+		% Seitenhalbierende (unten)
+		\coordinate (A-SH-BC-BD) at ($(BC)!0.5!(BD)$);
+		% unsichtbaren Pfad von oben nach unten berechnen
+		\path[name path=BHORIZ] (A-SH-BA-BB) -- (A-SH-BC-BD);
+		% Seitenhalbierende (links)
+		\coordinate (A-SH-BA-BD) at ($(BA)!0.5!(BD)$);
+		% Seitenhalbierende (rechts)
+		\coordinate (A-SH-BB-BC) at ($(BB)!0.5!(BC)$);
+		% unsichtbaren Pfad von links nach rechts berechnen
+		\path[name path=BVERT] (A-SH-BA-BD) -- (A-SH-BB-BC);
+		% Schnittpunkt von Horizontale und Vertikale
+		\path [name intersections={of=BHORIZ and BVERT, by=B-Mitte}];
+		% ----------------------------------------
+		
+		% Zeichne die Box			
+		\draw [line width=\myLineWidth] (BA)--(BB)--(BC)--(BD)--(BA);
+		
+		% Schreibe B am Schnittpunkt (in das Rechteck)
+		\node at (B-Mitte) {\LARGE $B$};
+		
+		
+		% ==========
+		% Rechteck C
+		% ==========
+		% Koordinaten des Rechtecks bestimmen			
+		\coordinate (CA) at (2,0);
+		\coordinate (CB) at (7,0);
+		\coordinate (CC) at (7,-3);
+		\coordinate (CD) at (2,-3);
+		
+		% Mittelpunkt des Rechtecks finden...
+		% -----------------------------------
+		% Seitenhalbierende (oben)
+		\coordinate (A-SH-CA-CB) at ($(CA)!0.5!(CB)$);
+		% Seitenhalbierende (unten)
+		\coordinate (A-SH-CC-CD) at ($(CC)!0.5!(CD)$);
+		% unsichtbaren Pfad von oben nach unten berechnen
+		\path[name path=CHORIZ] (A-SH-CA-CB) -- (A-SH-CC-CD);
+		% Seitenhalbierende (links)
+		\coordinate (A-SH-CA-CD) at ($(CA)!0.5!(CD)$);
+		% Seitenhalbierende (rechts)
+		\coordinate (A-SH-CB-CC) at ($(CB)!0.5!(CC)$);
+		% unsichtbaren Pfad von links nach rechts berechnen
+		\path[name path=CVERT] (A-SH-CA-CD) -- (A-SH-CB-CC);
+		% Schnittpunkt von Horizontale und Vertikale
+		\path [name intersections={of=CHORIZ and CVERT, by=C-Mitte}];
+		% ----------------------------------------
+		
+		% Zeichne die Box			
+		\draw [line width=\myLineWidth] (CA)--(CB)--(CC)--(CD)--(CA);
+		
+		% Schreibe B am Schnittpunkt (in das Rechteck)
+		\node at (C-Mitte) {\LARGE $C$};
+		
+		
+		% ==========
+		% Rechteck C
+		% ==========
+		% Koordinaten des Rechtecks bestimmen;
+		\coordinate (DA) at (2,-3);
+		\coordinate (DB) at (7,-3);
+		\coordinate (DC) at (7,-6);
+		\coordinate (DD) at (2,-6);
+		
+		% Mittelpunkt des Rechtecks finden...
+		% -----------------------------------
+		% Seitenhalbierende (oben)
+		\coordinate (A-SH-DA-DB) at ($(DA)!0.5!(DB)$);
+		% Seitenhalbierende (unten)
+		\coordinate (A-SH-DC-DD) at ($(DC)!0.5!(DD)$);
+		% unsichtbaren Pfad von oben nach unten berechnen
+		\path[name path=DHORIZ] (A-SH-DA-DB) -- (A-SH-DC-DD);
+		% Seitenhalbierende (links)
+		\coordinate (A-SH-DA-DD) at ($(DA)!0.5!(DD)$);
+		% Seitenhalbierende (rechts)
+		\coordinate (A-SH-DB-DC) at ($(DB)!0.5!(DC)$);
+		% unsichtbaren Pfad von links nach rechts berechnen
+		\path[name path=DVERT] (A-SH-DA-DD) -- (A-SH-DB-DC);
+		% Schnittpunkt von Horizontale und Vertikale
+		\path [name intersections={of=DHORIZ and DVERT, by=D-Mitte}];
+		% ----------------------------------------
+		
+		% Zeichne die Box			
+		\draw [line width=\myLineWidth, pattern=dots] (DA)--(DB)--(DC)--(DD)--(DA);
+		
+		% Schreibe B am Schnittpunkt (in das Rechteck)
+		\node at (D-Mitte) {\LARGE $D$};
+		
+		% Text auf Pfad
+		\draw (AA) -- (AB) node [midway, above, sloped] (TextNode) {$7cm$}; %Text rotieren.
+		\draw (AB) -- (AC) node [midway, above, sloped] (TextNode) {\rotatebox{270}{\small $x$}}; %Text rotieren.
+		\draw (BA) -- (BB) node [midway, below, sloped] (TextNode) {\tiny $7cm-y$};
+		\draw (CA) -- (CB) node [midway, below, sloped] (TextNode) {$y$};
+		\draw (BA) -- (BD) node [midway, below, sloped] (TextNode) {\rotatebox{180}{$7cm$}};
+		\draw (CB) -- (CC) node [midway, above, sloped] (TextNode) {\rotatebox{90}{\small $z = (7cm-x)/2$}};
+		\end{tikzpicture}
+		\end{center}
+		
+	   \subsection{Umfangformeln}
+	    
+		\begin{equation*}
+		\begin{array}{rl}
+			U_A &=\ 2 \cdot (7cm + x) \\ 
+			U_B &=\ 2 \cdot [(7cm - x) + (7cm-y)] \\
+			U_C &=\ 2 \cdot [(\frac{7cm - x}{2}) + y] \\
+			U_D &=\ U_C
+		\end{array}
+		\end{equation*}
+		
+		\subsection{Umfang gleichsetzen und Gleichung lösen}
+		\begin{equation*}
+		\begin{array}{rl}
+			U_A &=\ U_B \\
+			2 \cdot (7cm + x) &=\ 2 \cdot (7cm - x + 7cm - y)\\
+			14cm + 2x &=\ 2 \cdot (7cm - x + 7cm - y)\\ 
+			14cm + 2x &=\ 2 \cdot (14cm - x - y) \\
+			14cm + 2x &=\ 28cm - 2x - 2y \quad \text{\textbar} +2x\\
+			14cm + 4x &=\ 28cm - 2y \quad \text{\textbar} :2\\
+			7cm + 2x &=\ 14cm - y \quad \text{\textbar} -7cm \quad \text{\textbar} +y \\
+			I: 2x + y &=\ 7cm\\
+			\\
+			U_A &=\ U_C \\
+			2 \cdot (7cm + x) &=\ 2 \cdot [(\frac{7cm - x}{2}) + y] \\
+			14cm + 2x &=\ 7cm - x + 2y\\
+			II: 3x - 2y &=\ -7cm \\	
+			\end{array}
+			\end{equation*}
+		
+		%Tabelle, getrennt bei &, lininen mit midrule
+		\begin{equation*}
+		\begin{array}{rl} 
+		I: 2x + y &=\ 7cm \qquad \text{\textbar} \cdot2\\
+		II: 3x - 2y &=\ -7cm \\
+		\midrule
+		I: 4x + 2y &=\ 14cm \\
+		+ II: 3x - 2y &=\ -7cm \\
+		\midrule
+		7x &=\ 7cm \\
+		x	&=\ 1cm \\ 
+		\midrule
+		\midrule
+		I: 2 \cdot 1cm + y &=\ 7cm \qquad \text{\textbar} -2cm\\
+		y &=\ 5cm \\
+		\midrule
+		\midrule
+		\end{array}
+		\end{equation*}
+		
+		\subsection{Einsetzen der Ergebnisse} 
+	 	\begin{equation*}
+	 	\begin{array}{rl}
+		 	A &=\ 7cm \cdot x \\
+		 	A &=\ 7cm \cdot 1cm \\
+		 	  &=\ 7cm^2 \\
+		 	B &=\ (7cm - y) \cdot (7cm - x) \\
+		 	B &=\ (7cm - 5cm) \cdot (7cm - 1cm) \\
+		 	  &=\  2cm \cdot 6cm \\
+		 	  &=\ 12cm^2 \\
+		 	C &=\ y \cdot z \\
+		 	z &=\ 7cm - 1cm / 2 = 3cm \\
+		 	C &=\ 5cm \cdot 3cm \\
+		 	  &=\ 15cm^2 \\
+		 	D &=\ C \\
+		 	  &=\ 15cm^2 \\ 
+	 	\end{array}
+	 	\end{equation*}
+	 	
+		 \begin{center}
+		 	\begin{framed}
+ 		 	Die gesuchte Fläche $D$ ergibt $15cm^2$.
+ 		 	\end{framed}
+		 \end{center}
+		 
+ 
+		
+\end{document}
